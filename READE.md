@@ -1,8 +1,28 @@
-## Database Management System (DBMS)? What are its types, advantages, and applications?
+# Complete DBMS Interview Notes
+
+## Table of Contents
+
+1. [Introduction to Databases](#1-introduction-to-databases)
+2. [Relational Model](#2-relational-model)
+3. [ER Model (Entity-Relationship Model)](#3-er-model-entity-relationship-model)
+4. [Normalization (Data Organization)](#4-normalization-data-organization)
+5. [SQL Basics (Foundation)](#5-sql-basics-foundation)
+6. [Querying Data](#6-querying-data)
+7. [Aggregate Functions](#7-aggregate-functions)
+8. [Joins](#8-joins)
+9. [Subqueries](#9-subqueries)
+10. [Set Operations](#10-set-operations)
+11. [Functions in SQL](#11-functions-in-sql)
+
+---
+
+## 1. Introduction to Databases
+
+### Database Management System (DBMS)? What are its types, advantages, and applications?
 
 A **Database Management System (DBMS)** is software used to efficiently manage and organize databases. It provides an interface for storing, retrieving, updating, and managing data while ensuring **data integrity**, **security**, and **concurrency control**. Examples include **MySQL**, **PostgreSQL**, **Oracle**, and **SQL Server**.
 
-### Types of DBMS:
+#### Types of DBMS:
 1. **Hierarchical DBMS** – Organizes data in a tree-like structure with parent-child relationships.  
    *Example:* IBM IMS  
 2. **Network DBMS** – Represents data as a graph with many-to-many relationships.  
@@ -12,7 +32,7 @@ A **Database Management System (DBMS)** is software used to efficiently manage a
 4. **Object-Oriented DBMS** – Stores data as objects, similar to object-oriented programming.  
    *Example:* ObjectDB  
 
-### Advantages of DBMS:
+#### Advantages of DBMS:
 - **Data Integrity:** Maintains accuracy and consistency of data.  
 - **Data Security:** Provides controlled access via user permissions.  
 - **Efficient Retrieval:** Uses indexing and query optimization for faster results.  
@@ -20,7 +40,7 @@ A **Database Management System (DBMS)** is software used to efficiently manage a
 - **Backup & Recovery:** Supports automatic backup and restoration.  
 - **Concurrent Access:** Enables multiple users to work simultaneously without conflicts.  
 
-### Applications of DBMS:
+#### Applications of DBMS:
 - **Banking:** Account management, transaction processing.  
 - **E-commerce:** Product catalogs, order tracking, customer data.  
 - **Healthcare:** Patient records, diagnosis history.  
@@ -33,7 +53,7 @@ A **Database Management System (DBMS)** is software used to efficiently manage a
 
 ---
 
-## What are the problems with traditional file-based systems?
+### What are the problems with traditional file-based systems?
 
 Before the introduction of modern DBMS, data was stored and managed using basic file systems on hard drives. Although these systems allowed storing, retrieving, and updating files, they had several drawbacks:
 
@@ -46,7 +66,7 @@ Before the introduction of modern DBMS, data was stored and managed using basic 
 
 ---
 
-## What is the difference between DBMS and RDBMS?
+### What is the difference between DBMS and RDBMS?
 
 - **DBMS (Database Management System):**  
   A software system that enables users to create, store, modify, and delete data. It does **not** require a relational structure for organizing data.  
@@ -58,7 +78,7 @@ Before the introduction of modern DBMS, data was stored and managed using basic 
 
 ---
 
-## What is the difference between File System and DBMS?
+### What is the difference between File System and DBMS?
 
 | Aspect                | File System | DBMS |
 |-----------------------|-------------|------|
@@ -73,12 +93,12 @@ Before the introduction of modern DBMS, data was stored and managed using basic 
 
 ---
 
-## What are the different types of DBMS architecture?
+### What are the different types of DBMS architecture?
 
 A **DBMS architecture** defines how users interact with the database for reading, writing, and updating data. A well-designed architecture ensures **data consistency**, **performance**, and **security**.  
 The main types are:
 
-### 1. 1-Tier Architecture
+#### 1. 1-Tier Architecture
 The client, server, and database are all on the same system. Suitable for personal or standalone applications.  
 *Example:* Microsoft Excel.
 
@@ -94,7 +114,7 @@ The client, server, and database are all on the same system. Suitable for person
 **Illustration:**  
 ![DBMS 1-Tier Architecture](https://media.geeksforgeeks.org/wp-content/uploads/20230509110722/DBMS-1-Tier-Architecture.webp)
 
-### 2. 2-Tier Architecture
+#### 2. 2-Tier Architecture
 A client-server model where the application (client) communicates directly with the database server.  
 *Example:* Library Management System.
 
@@ -110,7 +130,7 @@ A client-server model where the application (client) communicates directly with 
 **Illustration:**  
 ![DBMS 2-Tier Architecture](https://media.geeksforgeeks.org/wp-content/uploads/20250108093805302915/2_tier.webp)
 
-### 3. 3-Tier Architecture
+#### 3. 3-Tier Architecture
 Adds an **application server** between the client and database. The client interacts with the application server, which communicates with the database. Common in large web applications.  
 *Example:* E-commerce websites.
 
@@ -127,69 +147,59 @@ Adds an **application server** between the client and database. The client inter
 
 ---
 
+### Database Users
 
-1. Database Administrator (DBA):
+#### 1. Database Administrator (DBA):
 
-Definition:
+**Definition:**
 A DBA is the person responsible for managing and maintaining the database system.
 
-Main Duties:
+**Main Duties:**
 
-Installing and configuring the DBMS.
+- Installing and configuring the DBMS.
+- Creating and managing databases.
+- Setting up user accounts, roles, and permissions.
+- Ensuring data security, backup, and recovery.
+- Monitoring database performance and fixing issues.
 
-Creating and managing databases.
+**Example:**
+A DBA ensures that the company's MySQL or Oracle database runs smoothly and securely every day.
 
-Setting up user accounts, roles, and permissions.
+#### 2. Database Developer / Application Programmer:
 
-Ensuring data security, backup, and recovery.
-
-Monitoring database performance and fixing issues.
-
-Example:
-A DBA ensures that the company’s MySQL or Oracle database runs smoothly and securely every day.
-
-2. Database Developer / Application Programmer:
-
-Definition:
+**Definition:**
 A Database Developer (or Application Programmer) is someone who designs, develops, and writes programs that interact with the database.
 
-Main Duties:
+**Main Duties:**
 
-Designing database schemas (tables, relationships, keys).
+- Designing database schemas (tables, relationships, keys).
+- Writing SQL queries, stored procedures, and triggers.
+- Developing applications or APIs that use the database.
+- Ensuring the software efficiently stores and retrieves data.
 
-Writing SQL queries, stored procedures, and triggers.
-
-Developing applications or APIs that use the database.
-
-Ensuring the software efficiently stores and retrieves data.
-
-Example:
+**Example:**
 A developer writing a web app that uses SQL queries to fetch user data from a database.
 
-3. End Users:
+#### 3. End Users:
 
-Definition:
-End users are the people who use the database applications to perform their daily tasks. They don’t manage or design the database — they just use it.
+**Definition:**
+End users are the people who use the database applications to perform their daily tasks. They don't manage or design the database — they just use it.
 
-Types of End Users:
+**Types of End Users:**
 
-Casual Users: Occasionally query the database using reports or dashboards.
+- **Casual Users:** Occasionally query the database using reports or dashboards.
+- **Naive Users:** Use predefined forms or applications (like ATM users).
+- **Sophisticated Users:** Use complex queries and analysis tools.
+- **Standalone Users:** Maintain their own personal databases (like Excel or Access).
 
-Naive Users: Use predefined forms or applications (like ATM users).
-
-Sophisticated Users: Use complex queries and analysis tools.
-
-Standalone Users: Maintain their own personal databases (like Excel or Access).
-
-Example:
+**Example:**
 A bank customer using an ATM or a student checking their result online — both are end users interacting with a database indirectly.
 
-
-
 ---
-🧠 What is Data Independence?
 
-Definition:
+### What is Data Independence?
+
+**Definition:**
 Data Independence means that changes made in one level of the database schema do not affect the higher levels.
 
 It allows us to modify the database structure (like storage or tables) without changing the application programs that use the data.
@@ -199,198 +209,203 @@ In other words —
 You can change how data is stored or organized without changing how users access it.
 
 There are two types of data independence:
-1️⃣ Physical Data Independence
 
-Definition:
+#### 1️⃣ Physical Data Independence
+
+**Definition:**
 The ability to change the physical (internal) storage of data without affecting the logical (conceptual) schema.
 
-In simple words:
+**In simple words:**
 You can change how data is stored (e.g., file format, indexing, compression) without changing what data is stored.
 
-Example:
+**Example:**
 If you move data from a hard disk to cloud storage or add an index for faster search, the logical view (tables, relationships) remains the same — applications still work normally.
 
-Goal:
+**Goal:**
 To shield the conceptual schema from changes in the internal schema.
 
-2️⃣ Logical Data Independence
+#### 2️⃣ Logical Data Independence
 
-Definition:
+**Definition:**
 The ability to change the logical (conceptual) schema without affecting the external (user/view) schemas.
 
-In simple words:
+**In simple words:**
 You can change what data is stored (like adding/removing columns or tables) without changing how users see it.
 
-Example:
-If you add a new column email in the Student table, users who only view name and marks don’t need to change anything in their applications.
+**Example:**
+If you add a new column email in the Student table, users who only view name and marks don't need to change anything in their applications.
 
-Goal:
+**Goal:**
 To protect user views (external schema) from changes in the conceptual schema.
-
 
 ---
 
-🧮 What is a Relation (Table)?
+## 2. Relational Model
 
-Definition:
+### What is a Relation (Table)?
+
+**Definition:**
 In a Relational Database, a Relation is simply a table that stores data in rows and columns.
 Each row (tuple) represents one record, and each column (attribute) represents a property or field of that record.
 
-Example:
+**Example:**
 
-Student_ID	Name	Age	Course
-101	Arjun	20	B.Tech
-102	Meera	21	BCA
-103	Ravi	22	B.Sc
+| Student_ID | Name  | Age | Course |
+|------------|-------|-----|--------|
+| 101        | Arjun | 20  | B.Tech |
+| 102        | Meera | 21  | BCA    |
+| 103        | Ravi  | 22  | B.Sc   |
 
 Here, the table Student is a Relation.
 
-1️⃣ Tuples (Rows):
+#### 1️⃣ Tuples (Rows):
 
-Definition:
+**Definition:**
 A tuple is a single row or record in a table.
 It represents one instance of data in the relation.
 
-Example:
+**Example:**
 (101, Arjun, 20, B.Tech) → one tuple representing one student.
 
-2️⃣ Attributes (Columns):
+#### 2️⃣ Attributes (Columns):
 
-Definition:
+**Definition:**
 An attribute is a column in a table that represents a specific property or field of the entity.
 
-Example:
+**Example:**
 Student_ID, Name, Age, and Course are attributes of the Student table.
 
-3️⃣ Degree:
+#### 3️⃣ Degree:
 
-Definition:
-The degree of a relation** is the number of attributes (columns) in that table.
+**Definition:**
+The degree of a relation is the number of attributes (columns) in that table.
 
-Example:
+**Example:**
 In the above Student table, there are 4 attributes, so degree = 4.
 
-4️⃣ Cardinality:
+#### 4️⃣ Cardinality:
 
-Definition:
-The cardinality of a relation** is the number of tuples (rows) in that table.
+**Definition:**
+The cardinality of a relation is the number of tuples (rows) in that table.
 
-Example:
+**Example:**
 In the Student table, there are 3 rows, so cardinality = 3.
 
-
-
 ---
-🔑 Keys in DBMS
 
-Definition:
+### Keys in DBMS
+
+**Definition:**
 Keys are special fields or combinations of fields used to uniquely identify records in a database table and to establish relationships between tables.
 
-1️⃣ Super Key
+#### 1️⃣ Super Key
 
-Definition:
+**Definition:**
 A Super Key is any set of one or more attributes that uniquely identifies a record in a table.
 It may contain extra/unnecessary attributes.
 
-Example:
+**Example:**
 For a table Student(Student_ID, Name, Email):
 
 {Student_ID}, {Email}, {Student_ID, Email} — all are Super Keys.
 
-2️⃣ Candidate Key
+#### 2️⃣ Candidate Key
 
-Definition:
+**Definition:**
 A Candidate Key is a minimal super key, meaning it uniquely identifies a record but has no unnecessary attributes.
 It is the best possible key to act as a primary key.
 
-Example:
+**Example:**
 If {Student_ID} and {Email} both uniquely identify students →
 Both are Candidate Keys.
 
-3️⃣ Primary Key
+#### 3️⃣ Primary Key
 
-Definition:
+**Definition:**
 A Primary Key is the main key chosen from the candidate keys to uniquely identify each record in a table.
 It cannot contain NULL values and must be unique.
 
-Example:
+**Example:**
 Student_ID can be chosen as the Primary Key.
 
-4️⃣ Alternate Key
+#### 4️⃣ Alternate Key
 
-Definition:
+**Definition:**
 A Candidate Key that is not selected as the primary key is called an Alternate Key.
 
-Example:
+**Example:**
 If Student_ID is Primary Key → then Email becomes an Alternate Key.
 
-5️⃣ Foreign Key
+#### 5️⃣ Foreign Key
 
-Definition:
+**Definition:**
 A Foreign Key is a field in one table that refers to the Primary Key of another table.
 It is used to maintain relationships between tables.
 
-Example:
+**Example:**
 
+```
 Student(Student_ID, Name)
 Marks(Student_ID, Score)
-
+```
 
 Here, Marks.Student_ID is a Foreign Key referencing Student.Student_ID.
 
-6️⃣ Composite Key
+#### 6️⃣ Composite Key
 
-Definition:
+**Definition:**
 A Composite Key is a combination of two or more attributes that together uniquely identify a record.
 
-Example:
+**Example:**
 In a table Enrollment(Student_ID, Course_ID, Date),
 → (Student_ID, Course_ID) together form a Composite Key.
 
-7️⃣ Surrogate Key
+#### 7️⃣ Surrogate Key
 
-Definition:
+**Definition:**
 A Surrogate Key is an artificial key (usually auto-generated) used when no natural key exists or suitable.
 It has no business meaning.
 
-Example:
+**Example:**
 Student_ID = 1001, 1002, 1003 (auto-generated by the system).
 
-🧩 Integrity Constraints
+---
 
-Definition:
+### Integrity Constraints
+
+**Definition:**
 Integrity constraints are rules that ensure the accuracy and consistency of data in a database.
 
-1️⃣ Entity Integrity
+#### 1️⃣ Entity Integrity
 
-Definition:
+**Definition:**
 Ensures that each row in a table is uniquely identified — hence the Primary Key cannot be NULL.
 
-Example:
+**Example:**
 In Student table, Student_ID (Primary Key) must not be NULL.
 
-2️⃣ Referential Integrity
+#### 2️⃣ Referential Integrity
 
-Definition:
+**Definition:**
 Ensures that a Foreign Key value always refers to an existing Primary Key in another table.
 It prevents orphan records.
 
-Example:
+**Example:**
 If Marks.Student_ID = 105 → there must be a record with Student.Student_ID = 105.
 
-3️⃣ Domain Integrity
+#### 3️⃣ Domain Integrity
 
-Definition:
+**Definition:**
 Ensures that data values are valid and within a defined range or format for a given attribute.
 
-Example:
+**Example:**
 
-Age must be between 0 and 100
+- Age must be between 0 and 100
+- Email must follow a valid email format
 
-Email must follow a valid email format
 ---
 
-## Entity-Relationship (ER) Model
+## 3. ER Model (Entity-Relationship Model)
 
 The **ER Model** is a conceptual framework for database design.  
 It visually represents entities, their attributes, and the relationships between them through **Entity-Relationship Diagrams (ERDs)**.
@@ -482,11 +497,9 @@ Defines maximum number of relationships per entity.
 
 - Entities from both sets can have multiple relationships with each other.
 
-
 ---
 
-
-## Normalization
+## 4. Normalization (Data Organization)
 
 ### What is Normalization? Why is it Important in DBMS?
 
@@ -512,9 +525,7 @@ Denormalization is the process of combining tables to improve query performance,
 | Data Redundancy| Reduced                                | Increased                                 |
 | Use Case       | Transactional systems                  | Analytical / reporting systems            |
 
-
 ---
-
 
 ### Types of Normal Forms
 
@@ -542,7 +553,6 @@ A relation is in **3NF** if:
 3. **Equivalently:** For every functional dependency `X → Y` in the table, at least one of these must be true:
    - **X** is a **superkey** (meaning it can uniquely identify a row), **or**
    - **Y** is a **prime attribute** (part of some candidate key).
-
 
 **Example Violation:**  
 If `Instructor` depends on `CourseID`, which depends on `StudentID` → move `Instructor` to table linked by `CourseID`.
@@ -600,11 +610,9 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 
 ---
 
-# Normal Forms Examples with Conflicts & Resolutions
+### Normal Forms Examples with Conflicts & Resolutions
 
----
-
-## **1NF (First Normal Form)**
+#### **1NF (First Normal Form)**
 **Rule:**  
 - Only **atomic values** (no repeating groups or multi-valued attributes)  
 - No composite attributes  
@@ -628,7 +636,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 
 ---
 
-## **2NF (Second Normal Form)**
+#### **2NF (Second Normal Form)**
 **Rule:**  
 - Must be in **1NF**  
 - **No partial dependency** (No non-prime attribute should depend on part of a composite key)
@@ -645,6 +653,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 - `CourseName` depends **only** on `CourseID` → **Partial dependency**
 
 **Resolved Tables (2NF):**
+
 **Student Table:**
 | StudentID | StudentName |
 |-----------|-------------|
@@ -664,7 +673,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 
 ---
 
-## **3NF (Third Normal Form)**
+#### **3NF (Third Normal Form)**
 **Rule:**  
 - Must be in **2NF**  
 - No **transitive dependency** (No non-prime attribute depends on another non-prime attribute)
@@ -680,6 +689,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 - `DeptName` depends on `DeptID` (which is a non-prime attribute) → **Transitive dependency**
 
 **Resolved Tables (3NF):**
+
 **Student Table:**
 | StudentID | StudentName | DeptID |
 |-----------|-------------|--------|
@@ -694,7 +704,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 
 ---
 
-## **4NF (Fourth Normal Form)**
+#### **4NF (Fourth Normal Form)**
 **Rule:**  
 - Must be in **Boyce–Codd Normal Form (BCNF)**  
 - No **multi-valued dependencies** (MVDs) unless trivial  
@@ -712,6 +722,7 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 - This leads to redundant combinations
 
 **Resolved Tables (4NF):**
+
 **StudentHobby Table:**
 | StudentID | Hobby     |
 |-----------|-----------|
@@ -724,72 +735,852 @@ If `(StudentID, Language, Hobby)` exists with independent languages & hobbies �
 | 1         | English   |
 | 1         | French    |
 
-
-
 ---
 
-⚠️ Anomalies (Insertion, Deletion, Update)
-Definition:
+### Anomalies (Insertion, Deletion, Update)
+
+**Definition:**
 
 Anomalies are problems or inconsistencies that occur in a database due to improper table design — typically when data is stored in a single large unnormalized table instead of being divided into smaller related tables.
 
 These anomalies lead to data redundancy, inconsistency, and integrity issues.
 
-There are three main types of anomalies 👇
+There are three main types of anomalies:
 
-🟢 1️⃣ Insertion Anomaly
+#### 1️⃣ Insertion Anomaly
 
-Definition:
+**Definition:**
 Occurs when you cannot insert data into a table because some other data is missing.
 
-Example:
+**Example:**
 Consider a table combining Student and Course details:
 
-Student_ID	Student_Name	Course_ID	Course_Name
-101	Arjun	C1	DBMS
-102	Meera	C2	SQL
+| Student_ID | Student_Name | Course_ID | Course_Name |
+|------------|--------------|-----------|-------------|
+| 101        | Arjun        | C1        | DBMS        |
+| 102        | Meera        | C2        | SQL         |
 
-Now, suppose a new course “Python” is introduced, but no student has enrolled yet.
+Now, suppose a new course "Python" is introduced, but no student has enrolled yet.
 ➡️ You cannot insert this course record because the table requires a Student_ID and Student_Name.
 
-Problem:
-We can’t add a new course without a student.
+**Problem:**
+We can't add a new course without a student.
 
-✅ Solution:
+**✅ Solution:**
 Split into two tables — Student and Course, linked by Enrollment.
 
-🟠 2️⃣ Deletion Anomaly
+#### 2️⃣ Deletion Anomaly
 
-Definition:
+**Definition:**
 Occurs when deleting one piece of data unintentionally removes other important data.
 
-Example:
+**Example:**
 Using the same table, if student Arjun (101) drops the DBMS course and his record is deleted:
 ➡️ The course DBMS information is also lost, even though the course still exists.
 
-Problem:
+**Problem:**
 Deleting a student record causes loss of course data.
 
-✅ Solution:
+**✅ Solution:**
 Separate the course information into its own table.
 
-🔵 3️⃣ Update Anomaly
+#### 3️⃣ Update Anomaly
 
-Definition:
+**Definition:**
 Occurs when the same data is stored multiple times, and an update in one place requires manual updates everywhere — otherwise, inconsistencies occur.
 
-Example:
-If the course name “DBMS” changes to “Database Systems”,
+**Example:**
+If the course name "DBMS" changes to "Database Systems",
 ➡️ You must update it in every row where that course appears.
 If you miss one, data becomes inconsistent.
 
-Problem:
+**Problem:**
 Data redundancy causes inconsistency on updates.
 
-✅ Solution:
+**✅ Solution:**
 Store course details in a separate table and reference it by ID.
-
 
 ---
 
+## 5. SQL Basics (Foundation)
 
+### What is SQL?
+SQL (Structured Query Language) is a standard language used to interact with relational databases.  
+It allows you to **create**, **read**, **update**, and **delete** data (CRUD operations) and manage database structures.
+
+---
+
+### SQL vs MySQL vs PostgreSQL vs Oracle
+
+#### **1. SQL**
+- A *language*, not a database.
+- Used to write queries like `SELECT`, `INSERT`, `UPDATE`.
+
+#### **2. MySQL**
+- An open-source **RDBMS**.
+- Fast, widely used for web applications.
+- Follows SQL but has its own extensions.
+- Great for read-heavy workloads.
+
+#### **3. PostgreSQL**
+- Advanced, open-source **object-relational** database.
+- Supports JSON, indexing techniques, triggers, stored procedures.
+- Strong ACID compliance, best for complex queries.
+
+#### **4. Oracle Database**
+- Enterprise-grade commercial database.
+- Highly scalable, secure, supports huge transactions.
+- Used by large companies (finance, telecom, enterprise systems).
+
+---
+
+### SQL Categories
+
+#### **1. DDL – Data Definition Language**
+Used to define or modify database structure.
+
+- `CREATE` – Create tables/databases  
+- `ALTER` – Modify table structure  
+- `DROP` – Delete table/database  
+- `TRUNCATE` – Delete all rows (faster than DELETE)
+
+**Example:**
+```sql
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+```
+
+---
+
+#### **2. DML – Data Manipulation Language**
+Used to manipulate data inside tables.
+
+- `INSERT` – Add new rows  
+- `UPDATE` – Modify existing rows  
+- `DELETE` – Remove rows  
+- `SELECT` – Read data
+
+**Example:**
+```sql
+INSERT INTO users VALUES (1, 'Purvesh');
+```
+
+---
+
+#### **3. DCL – Data Control Language**
+Used to control access/permissions.
+
+- `GRANT` – Give access  
+- `REVOKE` – Remove access
+
+**Example:**
+```sql
+GRANT SELECT ON users TO 'student';
+```
+
+---
+
+#### **4. TCL – Transaction Control Language**
+Used to manage transactions.
+
+- `COMMIT` – Save changes  
+- `ROLLBACK` – Undo changes  
+- `SAVEPOINT` – Mark a spot to rollback to
+
+**Example:**
+```sql
+START TRANSACTION;
+UPDATE accounts SET balance = balance - 500 WHERE id = 1;
+SAVEPOINT s1;
+UPDATE accounts SET balance = balance + 500 WHERE id = 2;
+ROLLBACK TO s1;
+COMMIT;
+```
+
+---
+
+### SQL Data Types (Most Common)
+
+- **INT** – Whole numbers  
+- **FLOAT / DOUBLE** – Decimal numbers  
+- **VARCHAR(n)** – Variable-length string  
+- **CHAR(n)** – Fixed length string  
+- **DATE** – YYYY-MM-DD  
+- **DATETIME / TIMESTAMP** – Date + time  
+- **BOOLEAN** – True/False  
+- **TEXT** – Long text
+
+---
+
+### SQL Constraints
+
+#### **PRIMARY KEY**
+- Uniquely identifies each row (no duplicates, no NULL).
+
+#### **FOREIGN KEY**
+- Creates relationship between tables; references another table's primary key.
+
+#### **UNIQUE**
+- No duplicate values allowed.
+
+#### **CHECK**
+- Enforces a condition on a column.
+
+#### **DEFAULT**
+- Sets default value if no value provided.
+
+#### **NOT NULL**
+- Column cannot store NULL values.
+
+**Example:**
+```sql
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    salary INT CHECK (salary > 0),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments(id)
+);
+```
+
+---
+
+## 6. Querying Data
+
+### SELECT Statement
+Used to retrieve data from a table.
+
+**Syntax:**
+```sql
+SELECT column1, column2 FROM table_name;
+```
+
+**Example:**
+```sql
+SELECT name, age FROM students;
+```
+
+---
+
+### DISTINCT
+Removes duplicate values from the result.
+
+**Example:**
+```sql
+SELECT DISTINCT city FROM customers;
+```
+
+---
+
+### Filtering Data – WHERE Clause
+Used to filter rows based on a condition.
+
+**Example:**
+```sql
+SELECT * FROM employees WHERE salary > 50000;
+```
+
+---
+
+### BETWEEN (Range Filter)
+Filters values within a range (inclusive).
+
+**Example:**
+```sql
+SELECT * FROM orders 
+WHERE order_date BETWEEN '2024-01-01' AND '2024-12-31';
+```
+
+---
+
+### IN (Match any of given values)
+Useful when matching multiple possible values.
+
+**Example:**
+```sql
+SELECT * FROM students 
+WHERE department IN ('IT', 'CSE', 'ECE');
+```
+
+---
+
+### LIKE (Pattern Matching)
+Used for searching text with patterns.
+
+**Wildcards:**
+- `%` → multiple characters  
+- `_` → single character
+
+**Examples:**
+```sql
+SELECT * FROM users WHERE name LIKE 'P%';   -- starts with P
+SELECT * FROM users WHERE name LIKE '%sh';  -- ends with sh
+SELECT * FROM users WHERE name LIKE '_a%';  -- second letter is 'a'
+```
+
+---
+
+### IS NULL / IS NOT NULL
+Checks for NULL values.
+
+**Example:**
+```sql
+SELECT * FROM employees WHERE manager_id IS NULL;
+```
+
+---
+
+### ORDER BY – Sorting Data
+Sort results in **ascending (ASC)** or **descending (DESC)** order.
+
+**Examples:**
+```sql
+SELECT * FROM products ORDER BY price ASC;
+SELECT * FROM products ORDER BY rating DESC;
+```
+
+---
+
+### LIMIT / TOP – Limiting Results
+Different databases use different keywords:
+
+**MySQL / PostgreSQL:**
+```sql
+SELECT * FROM students LIMIT 5;
+```
+
+**SQL Server:**
+```sql
+SELECT TOP 5 * FROM students;
+```
+
+---
+
+### Aliases (AS)
+Used to give temporary names to columns or tables.
+
+**Column Alias:**
+```sql
+SELECT name AS student_name FROM students;
+```
+
+**Table Alias:**
+```sql
+SELECT s.name, d.dept_name
+FROM students AS s
+JOIN departments AS d ON s.dept_id = d.id;
+```
+
+---
+
+## 7. Aggregate Functions
+
+### 1. Aggregate Functions
+Aggregate functions perform calculations on a group of values and return a single result.
+
+#### **COUNT()**
+Returns number of rows.
+
+```sql
+SELECT COUNT(*) FROM employees;
+```
+
+#### **SUM()**
+Adds all numeric values.
+
+```sql
+SELECT SUM(salary) FROM employees;
+```
+
+#### **AVG()**
+Returns the average value.
+
+```sql
+SELECT AVG(salary) FROM employees;
+```
+
+#### **MIN()**
+Returns the smallest value.
+
+```sql
+SELECT MIN(age) FROM students;
+```
+
+#### **MAX()**
+Returns the largest value.
+
+```sql
+SELECT MAX(price) FROM products;
+```
+
+---
+
+### 2. GROUP BY
+Used to group rows that have the same values in one or more columns.
+Often used with aggregate functions.
+
+**Example:**
+```sql
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department;
+```
+→ Returns average salary of each department.
+
+---
+
+### 3. HAVING Clause
+Used to filter groups **after** applying aggregation.
+
+**Example:**
+```sql
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+```
+→ Shows only departments where average salary is above 50k.
+
+---
+
+### 4. WHERE vs HAVING – Key Difference
+
+| Feature | WHERE | HAVING |
+|--------|--------|--------|
+| **Purpose** | Filters rows before grouping | Filters groups after grouping |
+| **Used With** | Tables and rows | GROUP BY + aggregates |
+| **Can use aggregates?** | ❌ No | ✅ Yes |
+| **Order of execution** | First | After GROUP BY |
+
+**Example Showing Difference:**
+
+```sql
+-- Filter rows using WHERE
+SELECT department, COUNT(*)
+FROM employees
+WHERE salary > 30000
+GROUP BY department;
+
+-- Filter groups using HAVING
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 10;
+```
+
+---
+
+## 8. Joins
+
+### Joins in SQL
+
+**Definition:**  
+A **JOIN** in SQL is an operation that combines columns from two or more tables based on a **related column** between them.  
+It is used to query and retrieve data from multiple tables in a relational database.
+
+---
+
+### Types of Joins
+
+#### 1. **INNER JOIN**  
+Returns only the rows where there is a match in both tables.  
+
+**Example:**
+```sql
+SELECT * 
+FROM Student
+INNER JOIN Course 
+    ON Student.ID = Course.StudentID;
+```
+
+#### 2. **LEFT JOIN (LEFT OUTER JOIN)**  
+Returns all rows from the **left** table and matching rows from the right table.  
+If no match exists, NULL values are returned for columns from the right table.
+
+**Example:**
+```sql
+SELECT * 
+FROM Student
+LEFT JOIN Course 
+    ON Student.ID = Course.StudentID;
+```
+
+#### 3. **RIGHT JOIN (RIGHT OUTER JOIN)**  
+Returns all rows from the **right** table and matching rows from the left table.  
+If no match exists, NULL values are returned for columns from the left table.
+
+**Example:**
+```sql
+SELECT * 
+FROM Student
+RIGHT JOIN Course 
+    ON Student.ID = Course.StudentID;
+```
+
+#### 4. **FULL JOIN (FULL OUTER JOIN)**  
+Returns all rows when there is a match in **either** left or right table.  
+If no match exists, NULL values are returned for columns of the table without a match.
+
+**Example:**
+```sql
+SELECT * 
+FROM Student
+FULL JOIN Course 
+    ON Student.ID = Course.StudentID;
+```
+
+#### 5. **CROSS JOIN**  
+Returns the **Cartesian product** of two tables — every combination of rows from both tables.
+
+**Example:**
+```sql
+SELECT * 
+FROM Student
+CROSS JOIN Course;
+```
+
+#### 6. **SELF JOIN**  
+Joins a table with itself, useful for comparing rows in the same table.  
+Uses table aliases to differentiate instances.
+
+**Example:**
+```sql
+SELECT E1.Employee_ID, E1.Employee_Name, E2.Employee_Name AS Manager_Name
+FROM Employee E1
+LEFT JOIN Employee E2 
+    ON E1.Manager_ID = E2.Employee_ID;
+```
+
+---
+
+## 9. Subqueries
+
+### What is a Subquery?
+A **subquery** (or inner query) is a query inside another query.  
+It is used to fetch data needed by the outer query.
+
+Subqueries can be used in:
+- `SELECT`
+- `FROM`
+- `WHERE`
+- `HAVING`
+- `INSERT`, `UPDATE`, `DELETE` (sometimes)
+
+---
+
+### 1. Single-Row Subquery
+A subquery that returns **exactly one row**.
+
+Used with: `=`, `<`, `>`, `<=`, `>=`
+
+**Example:**
+```sql
+SELECT name
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+);
+```
+→ Compares salary with a single value (average salary).
+
+---
+
+### 2. Multi-Row Subquery
+Returns **multiple rows**.
+
+Used with operators like:
+- `IN`
+- `ANY`
+- `ALL`
+
+---
+
+#### (a) IN (Match any value)
+```sql
+SELECT name
+FROM students
+WHERE dept_id IN (
+    SELECT id
+    FROM departments
+    WHERE location = 'Pune'
+);
+```
+
+---
+
+#### (b) ANY (True if ANY one value matches condition)
+```sql
+SELECT name
+FROM employees
+WHERE salary > ANY (
+    SELECT salary FROM interns
+);
+```
+→ Salary greater than **at least one** intern's salary.
+
+---
+
+#### (c) ALL (True if condition matches ALL values)
+```sql
+SELECT name
+FROM employees
+WHERE salary > ALL (
+    SELECT salary FROM interns
+);
+```
+→ Salary greater than **every** intern's salary.
+
+---
+
+### 3. Correlated Subquery
+A subquery that **depends on the outer query** for each row.
+
+Runs once per outer-row → slower but powerful.
+
+**Example:**
+```sql
+SELECT e1.name
+FROM employees e1
+WHERE e1.salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.department = e1.department
+);
+```
+→ For each employee, calculate department-wise average.
+
+---
+
+### 4. Subqueries in Different Clauses
+
+#### (a) Subquery in SELECT
+Used to compute extra values.
+
+```sql
+SELECT name,
+       (SELECT COUNT(*) FROM orders WHERE orders.emp_id = employees.id) AS order_count
+FROM employees;
+```
+
+---
+
+#### (b) Subquery in FROM (Inline View/Table Subquery)
+Acts like a temporary table.
+
+```sql
+SELECT dept, avg_sal
+FROM (
+    SELECT department AS dept, AVG(salary) AS avg_sal
+    FROM employees
+    GROUP BY department
+) AS dept_avg;
+```
+
+---
+
+#### (c) Subquery in WHERE (Most common)
+Used for filtering.
+
+```sql
+SELECT name
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+);
+```
+
+---
+
+## 10. Set Operations
+
+### What Are Set Operations?
+Set operations combine the results of two SELECT queries.  
+Both queries **must have the same number of columns** and matching data types.
+
+---
+
+### 1. UNION vs UNION ALL
+
+#### UNION
+- Combines results of two SELECT queries.
+- **Removes duplicates**.
+- Performs a **sorting** step → slightly slower.
+
+**Example:**
+```sql
+SELECT name FROM table1
+UNION
+SELECT name FROM table2;
+```
+
+---
+
+#### UNION ALL
+- Combines results of two SELECT queries.
+- **Keeps duplicates**.
+- Faster than UNION (no sorting).
+
+**Example:**
+```sql
+SELECT name FROM table1
+UNION ALL
+SELECT name FROM table2;
+```
+
+---
+
+### 2. INTERSECT
+Returns **common rows** between two result sets (like set intersection).
+
+Supported in:
+- PostgreSQL
+- Oracle
+- SQL Server  
+(Not directly in MySQL — needs workaround using INNER JOIN.)
+
+**Example:**
+```sql
+SELECT email FROM customers_2024
+INTERSECT
+SELECT email FROM customers_2025;
+```
+→ Returns emails present in both tables.
+
+---
+
+### 3. EXCEPT / MINUS
+Removes rows from the first query that appear in the second query.
+
+- **EXCEPT** → Used in PostgreSQL, SQL Server  
+- **MINUS** → Used in Oracle  
+- MySQL: Use LEFT JOIN trick to simulate.
+
+**Example (EXCEPT):**
+```sql
+SELECT id FROM tableA
+EXCEPT
+SELECT id FROM tableB;
+```
+→ Shows ids present in A but not in B.
+
+**Example (Oracle MINUS):**
+```sql
+SELECT id FROM tableA
+MINUS
+SELECT id FROM tableB;
+```
+
+---
+
+## 11. Functions in SQL
+
+SQL provides built-in functions for string manipulation, dates, and numeric calculations.
+
+---
+
+### 1. String Functions
+
+#### **LENGTH()**
+Returns the number of characters in a string.
+```sql
+SELECT LENGTH('Purvesh');
+```
+
+#### **CONCAT()**
+Combines multiple strings.
+```sql
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;
+```
+
+#### **SUBSTRING()** (or SUBSTR)
+Extracts part of a string.
+```sql
+SELECT SUBSTRING('LearnPlay', 1, 5);   -- Learn
+```
+
+#### **UPPER() / LOWER()**
+Converts text to uppercase or lowercase.
+```sql
+SELECT UPPER(name), LOWER(name) FROM students;
+```
+
+#### **TRIM()**
+Removes leading and trailing spaces.
+```sql
+SELECT TRIM('   Hello   ');
+```
+
+#### **REPLACE()**
+Replaces part of a string with another value.
+```sql
+SELECT REPLACE('JavaScript', 'Java', 'Type'); -- TypeScript
+```
+
+---
+
+### 2. Date Functions
+
+#### **NOW()**
+Returns current date + time.
+```sql
+SELECT NOW();
+```
+
+#### **CURDATE()**
+Returns the current date.
+```sql
+SELECT CURDATE();
+```
+
+#### **DATEDIFF()**
+Returns days between two dates.
+```sql
+SELECT DATEDIFF('2025-12-31', '2025-01-01');
+```
+
+#### **YEAR(), MONTH(), DAY()**
+Extracts year, month, day from a date.
+```sql
+SELECT YEAR(order_date), MONTH(order_date), DAY(order_date)
+FROM orders;
+```
+
+---
+
+### 3. Numeric Functions
+
+#### **ROUND()**
+Rounds a number to a specified decimal.
+```sql
+SELECT ROUND(12.5678, 2);  -- 12.57
+```
+
+#### **CEIL()**
+Rounds number **up** to nearest integer.
+```sql
+SELECT CEIL(10.2);  -- 11
+```
+
+#### **FLOOR()**
+Rounds number **down**.
+```sql
+SELECT FLOOR(10.9);  -- 10
+```
+
+#### **ABS()**
+Returns absolute value.
+```sql
+SELECT ABS(-50);  -- 50
+```
+
+#### **MOD()**
+Returns remainder of division (x % y).
+```sql
+SELECT MOD(17, 5);  -- 2
+```
+
+---
+
+**End of Document**
