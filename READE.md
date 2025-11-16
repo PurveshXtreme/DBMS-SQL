@@ -924,6 +924,20 @@ COMMIT;
 
 ---
 
+### What is the difference between CHAR and VARCHAR2 data types?
+
+#### **CHAR**  
+- *Fixed-length* data type.
+- If you define `CHAR(10)` and insert a string of 4 characters, the remaining 6 characters will be padded with spaces.
+- Always allocates the full defined space, which can lead to wasted storage.
+
+#### **VARCHAR2**  
+- *Variable-length* data type.
+- If you define `VARCHAR2(10)` and insert 4 characters, it stores exactly those 4 characters without padding.
+- More efficient in terms of storage, especially when the actual data size varies.
+
+---
+
 ### SQL Constraints
 
 #### **PRIMARY KEY**
