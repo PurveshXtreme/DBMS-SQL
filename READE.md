@@ -938,36 +938,17 @@ COMMIT;
 
 ---
 
-### SQL Constraints
+**Constraints in DBMS:**  
+Constraints are **rules** applied to table data to maintain **data integrity** and **consistency**.  
 
-#### **PRIMARY KEY**
-- Uniquely identifies each row (no duplicates, no NULL).
-
-#### **FOREIGN KEY**
-- Creates relationship between tables; references another table's primary key.
-
-#### **UNIQUE**
-- No duplicate values allowed.
-
-#### **CHECK**
-- Enforces a condition on a column.
-
-#### **DEFAULT**
-- Sets default value if no value provided.
-
-#### **NOT NULL**
-- Column cannot store NULL values.
-
-**Example:**
-```sql
-CREATE TABLE employees (
-    id INT PRIMARY KEY,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    salary INT CHECK (salary > 0),
-    dept_id INT,
-    FOREIGN KEY (dept_id) REFERENCES departments(id)
-);
-```
+| Constraint     | Description                                                                                          | Example |
+|----------------|------------------------------------------------------------------------------------------------------|---------|
+| **NOT NULL**   | Ensures a column cannot have NULL values.                                                            | `Name VARCHAR(50) NOT NULL;` |
+| **PRIMARY KEY**| Uniquely identifies each record; no NULLs allowed.                                                   | `ID INT PRIMARY KEY;` |
+| **FOREIGN KEY**| Ensures referential integrity by linking a column to a primary key in another table.                 | `BranchCode INT FOREIGN KEY REFERENCES Branch(BranchCode);` |
+| **UNIQUE**     | Ensures all values in a column are distinct; allows NULL values.                                     | `Email VARCHAR(100) UNIQUE;` |
+| **CHECK**      | Ensures column values meet a specific condition.                                                     | `Age INT CHECK (Age >= 18);` |
+| **DEFAULT**    | Assigns a default value if none is provided during insertion.                                        | `Status VARCHAR(10) DEFAULT 'Active';` |
 
 ---
 
