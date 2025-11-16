@@ -901,6 +901,16 @@ COMMIT;
 
 ---
 
+## What is the difference between DELETE and TRUNCATE in SQL?
+
+**DELETE:** Deletes specific rows from a table based on a condition. It logs each row deletion and can be rolled back.
+
+**TRUNCATE:** Removes all rows from a table without logging individual row deletions. It cannot be rolled back and is faster than DELETE.
+
+---
+
+
+
 ### SQL Data Types (Most Common)
 
 - **INT** – Whole numbers  
