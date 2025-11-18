@@ -13,6 +13,14 @@
 9. [Subqueries](#9-subqueries)
 10. [Set Operations](#10-set-operations)
 11. [Functions in SQL](#11-functions-in-sql)
+12. [Advanced SQL Concepts](#12-advanced-sql-concepts)  
+13. [Transactions & Concurrency Control](#13-transactions--concurrency-control)  
+14. [Indexing & Query Optimization](#14-indexing--query-optimization)  
+15. [Database Security & Integrity](#15-database-security--integrity)  
+16. [DBMS Architecture & Storage](#16-dbms-architecture--storage)  
+17. [Distributed Databases](#17-distributed-databases)  
+18. [ER to Relational Mapping & Database Design](#18-er-to-relational-mapping--database-design)
+
 
 ---
 
@@ -1587,5 +1595,759 @@ SELECT MOD(17, 5);  -- 2
 ```
 
 ---
+---
 
-**End of Document**
+---
+
+## 1. Advanced SQL Concepts
+
+### CASE WHEN THEN (Conditional Logic)
+Used to apply conditional logic inside SQL queries.
+
+**Syntax:**
+```sql
+CASE
+    WHEN condition THEN result
+    WHEN condition THEN result
+    ELSE default_value
+END
+```
+
+**Example:**
+```sql
+SELECT name,
+       CASE
+           WHEN marks >= 90 THEN 'A'
+           WHEN marks >= 75 THEN 'B'
+           ELSE 'C'
+       END AS grade
+FROM students;
+```
+
+---
+
+### Views (Virtual Tables)
+A **view** is a stored SQL query that behaves like a virtual table.  
+It does not store data; it stores the query definition.
+
+**Example:**
+```sql
+CREATE VIEW high_salary AS
+SELECT name, salary
+FROM employees
+WHERE salary > 60000;
+```
+
+**Usage:**
+```sql
+SELECT * FROM high_salary;
+```
+
+---
+
+### Indexes (Performance Optimization)
+Indexes speed up **searching**, **filtering**, and **sorting** by creating a structure like a book index.
+
+- **Pros:** Faster SELECT  
+- **Cons:** Slower INSERT/UPDATE/DELETE (due to index maintenance)
+
+**Example:**
+```sql
+CREATE INDEX idx_employee_salary
+ON employees(salary);
+```
+
+---
+
+### Stored Procedures
+Reusable SQL code blocks stored in the database.  
+Used for complex logic, automation, and performance.
+
+**Example (MySQL):**
+```sql
+CREATE PROCEDURE getEmployees()
+BEGIN
+    SELECT * FROM employees;
+END;
+```
+
+**Calling:**
+```sql
+CALL getEmployees();
+```
+
+---
+
+### Triggers
+Automatic actions executed when INSERT, UPDATE, or DELETE events occur.
+
+**Example:**
+```sql
+CREATE TRIGGER before_insert_employee
+BEFORE INSERT ON employees
+FOR EACH ROW
+SET NEW.created_at = NOW();
+```
+
+---
+
+### Common Table Expressions (CTE)
+Temporary result sets used within a single query.  
+Improves readability of complex queries.
+
+**Syntax & Example:**
+```sql
+WITH cte AS (
+    SELECT dept_id, COUNT(*) AS total
+    FROM employees
+    GROUP BY dept_id
+)
+SELECT * FROM cte;
+```
+
+---
+
+### Window Functions
+Used to perform calculations across a set of rows **without grouping** them.
+
+#### ROW_NUMBER()
+Gives unique increasing number for each row.
+```sql
+SELECT name,
+       ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employees;
+```
+
+#### RANK()
+Gives rank with gaps (1,2,2,4).
+```sql
+SELECT name,
+       RANK() OVER (ORDER BY salary DESC) AS emp_rank
+FROM employees;
+```
+
+#### DENSE_RANK()
+Gives continuous ranks (1,2,2,3).
+```sql
+SELECT name,
+       DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank
+FROM employees;
+```
+
+#### LEAD()
+Accesses next row data.
+```sql
+SELECT name, salary,
+       LEAD(salary) OVER (ORDER BY salary) AS next_salary
+FROM employees;
+```
+
+#### LAG()
+Accesses previous row data.
+```sql
+SELECT name, salary,
+       LAG(salary) OVER (ORDER BY salary) AS previous_salary
+FROM employees;
+```
+
+---
+
+## 2. Transactions & Concurrency Control
+
+### What is a transaction in DBMS? What are the properties of a transaction?
+
+A **transaction** in DBMS is a sequence of one or more SQL operations executed as a single unit of work. A transaction ensures data integrity, consistency, and isolation, and it guarantees that the database reaches a valid state, regardless of errors or system failures.
+
+**Properties of a transaction (ACID Properties):**
+- **Atomicity:** All operations within the transaction are completed successfully, or none are applied (i.e., the transaction is atomic).
+- **Consistency:** The transaction brings the database from one valid state to another valid state.
+- **Isolation:** The operations of one transaction are isolated from others; intermediate results are not visible to other transactions.
+- **Durability:** Once a transaction is committed, its effects are permanent, even in the event of a system crash.
+
+---
+
+### What is the ACID Property in DBMS?
+
+In **Database Management Systems (DBMS)**, the **ACID** property is a set of principles that ensure reliable, consistent, and safe transaction processing. Each letter in ACID represents a fundamental property:
+
+#### 1. Atomicity  
+- **Definition:** A transaction is treated as a single, indivisible unit of work.  
+- **Meaning:** Either **all operations** in a transaction succeed, or **none do**.  
+- **Example:** If a bank transfer involves debiting one account and crediting another, both operations must succeed together. If one fails, the entire transaction is rolled back.
+
+#### 2. Consistency  
+- **Definition:** Ensures that a transaction takes the database from one valid state to another valid state.  
+- **Meaning:** All database rules, constraints, and relationships are maintained after the transaction.  
+- **Example:** If a table enforces a constraint that account balances cannot be negative, any transaction violating this is rejected.
+
+#### 3. Isolation  
+- **Definition:** Transactions are executed in isolation from each other.  
+- **Meaning:** The intermediate state of a transaction is **invisible to other transactions** until it is committed.  
+- **Example:** Two users updating the same record simultaneously will not interfere with each other; each sees a consistent snapshot of the database.
+
+#### 4. Durability  
+- **Definition:** Once a transaction is committed, its results are permanent.  
+- **Meaning:** Changes are saved even in the event of a system crash, power failure, or hardware issue.  
+- **Example:** After successfully transferring money, the debit and credit changes remain in the database even if the server fails immediately afterward.
+
+---
+
+### Transaction Control Commands
+
+#### COMMIT
+Saves all changes permanently.
+
+```sql
+COMMIT;
+```
+
+#### ROLLBACK
+Undo changes since the last COMMIT.
+
+```sql
+ROLLBACK;
+```
+
+#### SAVEPOINT
+Create a checkpoint inside a transaction.
+
+```sql
+SAVEPOINT s1;
+ROLLBACK TO s1;
+```
+
+---
+
+### Concurrency Problems
+
+When multiple transactions run simultaneously, several anomalies can occur:
+
+#### Lost Update
+Two transactions update the same data, but one overwrites the other unintentionally.
+
+#### Dirty Read
+A transaction reads **uncommitted** data from another transaction.
+
+**Example:**
+- T1 updates a value but doesn't commit
+- T2 reads that uncommitted value → risky
+
+#### Non-Repeatable Read
+Same query returns **different results** within a transaction due to another transaction modifying the data.
+
+**Example:**
+- T1 reads a row  
+- T2 updates that row  
+- T1 reads again → different value
+
+#### Phantom Read
+A transaction sees **new rows** inserted by another transaction in repeated reads.
+
+**Example:**
+- T1 runs `SELECT COUNT(*) FROM orders`
+- T2 inserts a new order
+- T1 runs again → count increases
+
+---
+
+### Isolation Levels (From weakest → strongest)
+
+#### Read Uncommitted
+- Allows dirty reads  
+- Lowest isolation, highest performance  
+
+#### Read Committed
+- Prevents dirty reads  
+- Allows non-repeatable reads  
+
+#### Repeatable Read
+- Prevents dirty + non-repeatable reads  
+- Phantom reads may occur  
+
+#### Serializable
+- Highest isolation  
+- Transactions behave as if executed one by one  
+- Prevents all anomalies (dirty, non-repeatable, phantom reads)
+
+---
+
+### Quick Comparison Table
+
+| Isolation Level      | Dirty Read | Non-Repeatable Read | Phantom Read |
+|----------------------|-----------|----------------------|--------------|
+| Read Uncommitted     | ✔ Allowed | ✔ Allowed            | ✔ Allowed    |
+| Read Committed       | ✘ No      | ✔ Allowed            | ✔ Allowed    |
+| Repeatable Read      | ✘ No      | ✘ No                 | ✔ Allowed    |
+| Serializable         | ✘ No      | ✘ No                 | ✘ No         |
+
+---
+
+## 3. Indexing & Query Optimization
+
+### What is an index in DBMS, how is indexing used, and what is the difference between clustered and non-clustered indexes?
+
+An **index** in DBMS is a data structure that improves the speed of data retrieval operations on a database table. It works like a **table of contents** in a book, allowing the database to quickly locate the position of a record based on a column value.  
+
+**Indexing** is the technique of creating indexes to speed up the retrieval of records from a table. Instead of scanning the entire table, the DBMS uses the index for a quick lookup, leading to better performance.
+
+---
+
+### Types of Indexes
+- **Single-column index:** Created on one column.  
+- **Composite index:** Created on multiple columns.  
+- **Unique index:** Ensures that no two rows have the same values in the indexed columns.  
+
+---
+
+### Difference between Clustered and Non-Clustered Indexes
+
+| Aspect                  | Clustered Index                                                                 | Non-Clustered Index                                                        |
+|-------------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Data Storage**        | Organizes and stores the actual table rows according to the index key.           | Creates a separate structure with pointers to the data rows in the table.  |
+| **Number per Table**    | Only one clustered index is allowed per table.                                   | Multiple non-clustered indexes can exist on the same table.                |
+| **Access Speed**        | Faster for range queries due to physical ordering of data.                       | Slower compared to clustered for large scans, but useful for lookups.      |
+| **Sorting**             | Determines the physical order of data in the table.                              | Does not affect the physical order of the data in the table.               |
+
+---
+
+### Advantages of Indexes
+
+#### ✔ Faster data retrieval  
+SELECT queries become much faster.
+
+#### ✔ Improves performance of:
+- WHERE  
+- JOIN  
+- ORDER BY  
+- GROUP BY  
+
+#### ✔ Helps in enforcing constraints  
+Unique indexes make UNIQUE constraints efficient.
+
+---
+
+### Disadvantages of Indexes
+
+#### ✘ Slower INSERT, UPDATE, DELETE  
+Because indexes need to be updated with every change.
+
+#### ✘ Extra storage required  
+Indexes take additional disk space.
+
+#### ✘ Too many indexes reduce performance  
+Excessive indexing slows down write-heavy systems.
+
+---
+
+## 4. Database Security & Integrity
+
+### Authentication vs Authorization
+
+#### Authentication
+**Verifies identity** of the user.  
+Ensures "*Who are you?*".
+
+**Examples:**
+- Username + Password  
+- OTP, biometrics  
+- Token-based login (JWT)
+
+#### Authorization
+**Decides what a user is allowed to do**.  
+Ensures "*What can you access?*".
+
+**Examples:**
+- Allow SELECT only  
+- Allow INSERT but not DELETE  
+- Grant permissions to specific tables
+
+---
+
+### Roles and Privileges
+
+#### Privileges
+Specific permissions assigned to users.
+
+**Examples:**
+- `SELECT`
+- `INSERT`
+- `UPDATE`
+- `DELETE`
+- `EXECUTE` (for procedures)
+
+**Granting Permissions:**
+```sql
+GRANT SELECT, INSERT ON employees TO 'user1';
+```
+
+**Revoking:**
+```sql
+REVOKE INSERT ON employees FROM 'user1';
+```
+
+---
+
+#### Roles
+A **role** is a group of privileges.  
+Used to assign permissions to multiple users easily.
+
+**Example:**
+- admin_role → ALL privileges  
+- read_only_role → SELECT only  
+
+**Create and Assign Role (MySQL/Oracle/PostgreSQL):**
+```sql
+CREATE ROLE read_only;
+GRANT SELECT ON employees TO read_only;
+GRANT read_only TO user1;
+```
+
+---
+
+### Data Integrity
+
+Ensures correctness, accuracy, and reliability of data.
+
+#### Types of Data Integrity:
+
+##### Entity Integrity
+- Each table must have a primary key.
+- Primary key cannot be NULL.
+
+##### Referential Integrity
+- FOREIGN KEY ensures valid relationships.
+- Prevents orphan records.
+
+##### Domain Integrity
+- Ensures valid values in columns using:
+  - Data types  
+  - CHECK constraints  
+  - DEFAULT values  
+  - NOT NULL  
+
+##### User-Defined Integrity
+- Business rules custom to application.
+- Example: Salary cannot exceed manager's salary.
+
+---
+
+### SQL Injection (Basic Concept)
+
+SQL Injection is a **security attack** where an attacker inserts malicious SQL into an input field to manipulate the database.
+
+**Example of Vulnerable Code:**
+```sql
+SELECT * FROM users WHERE username = '" + user_input + "'";
+```
+
+**How attackers exploit it:**
+
+Input:
+```
+' OR '1'='1
+```
+
+Query becomes:
+```sql
+SELECT * FROM users WHERE username = '' OR '1'='1';
+```
+→ Returns all users.
+
+---
+
+#### Preventing SQL Injection
+
+##### ✔ Use Prepared Statements / Parameterized Queries
+```sql
+SELECT * FROM users WHERE username = ?;
+```
+
+##### ✔ Validate and sanitize user input
+
+##### ✔ Use ORM frameworks
+
+##### ✔ Apply least privilege principle
+
+---
+
+## 5. DBMS Architecture & Storage
+
+### Components of DBMS Architecture
+
+A Database Management System (DBMS) has several core components that together handle query processing, data storage, and memory management.
+
+---
+
+#### 1. Query Processor
+Responsible for interpreting and executing SQL queries.
+
+**Major parts:**
+- **Parser** – Checks SQL syntax and validity  
+- **Query Optimizer** – Chooses the most efficient execution plan  
+- **Query Executor** – Actually runs the query using the best plan  
+
+**Role:**
+- Converts high-level SQL into low-level operations  
+- Ensures fast and optimized execution  
+
+---
+
+#### 2. Storage Manager
+Controls how data is stored, retrieved, and managed on disk.
+
+**Responsibilities:**
+- Managing data files and indexes  
+- Handling space allocation  
+- Managing physical storage  
+- Supporting transaction manager (ACID compliance)  
+
+**Includes components like:**
+- **Authorization & Integrity Manager**  
+- **File Manager**  
+- **Buffer Manager**  
+
+---
+
+#### 3. Buffer Manager
+Manages the **movement of data between disk and main memory (RAM)**.
+
+**Why needed?**
+- Disk is slow, RAM is fast  
+- Minimizes disk I/O operations → major performance gain  
+
+**Responsibilities:**
+- Caching frequently accessed pages  
+- Replacing old pages (LRU policy, etc.)  
+- Ensuring consistency between disk and memory  
+
+---
+
+### Data Storage Structure
+
+Databases store data in a structured hierarchy for optimized performance.
+
+#### 1. Files
+- Physical storage units on disk  
+- Contain multiple pages/blocks  
+
+#### 2. Pages / Blocks
+- The **smallest unit of storage** DBMS reads/writes  
+- Usually 4 KB, 8 KB, or 16 KB  
+- All records and indexes are stored in pages  
+
+#### 3. Records
+- Actual rows of a table  
+- Stored inside pages with header + metadata  
+
+---
+
+### Data Dictionary / System Catalog
+
+A **data dictionary** (system catalog) stores metadata — "data about data".
+
+**Contains information about:**
+- Tables, columns, data types  
+- Indexes and constraints  
+- Views, triggers, stored procedures  
+- User accounts and privileges  
+- Statistics used by query optimizer  
+
+**Importance:**
+- Helps the DBMS understand database structure  
+- Used by optimizer to generate efficient plans  
+- Helps maintain integrity and consistency  
+
+---
+
+## 6. Distributed Databases
+
+### Centralized vs Distributed Databases
+
+#### Centralized Database
+- All data stored at a **single location**.
+- Easy to manage and maintain.
+- Single point of failure.
+- Examples: Traditional on-prem databases.
+
+#### Distributed Database
+- Data is stored across **multiple sites/nodes** connected via a network.
+- Each site may run its own DBMS.
+- Looks like a single system to the user.
+
+**Advantages:**
+- High availability  
+- Faster access (local copies)  
+- Fault tolerance  
+- Scalability  
+
+**Challenges:**
+- Synchronization issues  
+- Complex design  
+- Network dependency  
+
+---
+
+### Fragmentation in Distributed Databases
+Splitting a table into smaller parts stored at different sites.
+
+#### 1. Horizontal Fragmentation
+- Rows are divided across sites.
+- Example: Employee data split by region.
+
+#### 2. Vertical Fragmentation
+- Columns are divided across sites.
+- Example: Personal info at one site; salary info at another.
+
+#### 3. Hybrid/Mixed Fragmentation
+- Combination of horizontal + vertical.
+
+---
+
+### Replication
+Storing **multiple copies** of the same data across different nodes.
+
+**Types:**
+- **Full Replication** – All sites have full copy  
+- **Partial Replication** – Only needed parts stored  
+- **No Replication** – Data uniquely stored at each site  
+
+**Benefits:**
+- High availability  
+- Faster reads  
+- Fault tolerance  
+
+**Drawbacks:**
+- Update conflicts  
+- Synchronization overhead  
+
+---
+
+### Two-Phase Commit (2PC)
+A protocol to ensure **distributed transaction consistency** across multiple sites.
+
+#### Phase 1: Prepare Phase
+- Coordinator asks all participants: "Can you commit?"
+- Participants reply: YES (prepared) or NO (abort).
+
+#### Phase 2: Commit Phase
+- If **all say YES** → Coordinator sends COMMIT.
+- If **any says NO** → Coordinator sends ROLLBACK.
+
+**Ensures:**
+- Atomicity across distributed systems  
+- No partial transactions  
+
+---
+
+## 7. ER to Relational Mapping & Database Design
+
+### Mapping Entities to Tables
+Each **entity** → becomes a **table**.  
+Each **attribute** → becomes a **column**.  
+Primary key chosen based on unique identifier.
+
+**Example:**  
+Entity: *Student {roll_no, name, age}*  
+→ Table: STUDENT(roll_no PK, name, age)
+
+---
+
+### 1:N (One-to-Many) Relationship
+Handled using a **foreign key** on the "many" side.
+
+**Example:**
+- One Department has many Employees  
+- EMPLOYEE table gets → dept_id (FK)
+
+```sql
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE employee (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id)
+);
+```
+
+---
+
+### M:N (Many-to-Many) Relationship
+Resolved using a **junction table** (bridge table).
+
+**Example:**
+- Students enroll in many courses  
+- Courses have many students  
+
+We create an extra table:
+
+Table: ENROLL(student_id FK, course_id FK)
+
+```sql
+CREATE TABLE enroll (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY(student_id, course_id),
+    FOREIGN KEY(student_id) REFERENCES students(id),
+    FOREIGN KEY(course_id) REFERENCES courses(id)
+);
+```
+
+---
+
+### Referential Integrity Using Foreign Keys
+Foreign keys ensure:
+- No child record exists without matching parent  
+- Prevent deletion of parent if child depends on it  
+
+**Example:**
+```sql
+FOREIGN KEY (dept_id)
+REFERENCES department(dept_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+```
+
+---
+
+## Interview Highlights
+
+### Advanced SQL:
+- CASE WHEN for conditional logic  
+- Views are virtual tables  
+- CTEs improve query readability  
+- Window functions: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG  
+
+### Transactions:
+- ACID: Atomicity, Consistency, Isolation, Durability  
+- Commands: COMMIT, ROLLBACK, SAVEPOINT  
+- Concurrency problems: Lost Update, Dirty Read, Non-Repeatable Read, Phantom Read  
+- Isolation levels: Read Uncommitted → Read Committed → Repeatable Read → Serializable  
+
+### Indexing:
+- Speeds up SELECT but slows INSERT/UPDATE/DELETE  
+- Clustered: Physical order; one per table  
+- Non-Clustered: Separate structure; multiple allowed  
+
+### Security:
+- Authentication = Who you are; Authorization = What you can do  
+- Use roles for group permissions  
+- Prevent SQL Injection with prepared statements  
+
+### Distributed DBMS:
+- Distributed = multiple nodes; centralized = single location  
+- Fragmentation: Horizontal/Vertical/Hybrid  
+- Replication improves availability but increases sync complexity  
+- 2PC ensures atomicity across distributed transactions  
+
+### ER → Relational Mapping:
+- Entity → Table; Attribute → Column  
+- 1:N → Foreign key on many side  
+- M:N → Bridge/junction table  
+- Foreign keys enforce referential integrity  
+
+---
+---
