@@ -13,13 +13,14 @@
 9. [Subqueries](#9-subqueries)
 10. [Set Operations](#10-set-operations)
 11. [Functions in SQL](#11-functions-in-sql)
-12. [Advanced SQL Concepts](#12-advanced-sql-concepts)  
-13. [Transactions & Concurrency Control](#13-transactions--concurrency-control)  
-14. [Indexing & Query Optimization](#14-indexing--query-optimization)  
-15. [Database Security & Integrity](#15-database-security--integrity)  
-16. [DBMS Architecture & Storage](#16-dbms-architecture--storage)  
-17. [Distributed Databases](#17-distributed-databases)  
-18. [ER to Relational Mapping & Database Design](#18-er-to-relational-mapping--database-design)
+12. [Advanced SQL Concepts](#1-advanced-sql-concepts)  
+13. [Transactions & Concurrency Control](#2-transactions--concurrency-control)  
+14. [Indexing & Query Optimization](#3-indexing--query-optimization)  
+15. [Database Security & Integrity](#4-database-security--integrity)  
+16. [DBMS Architecture & Storage](#5-dbms-architecture--storage)  
+17. [Distributed Databases](#6-distributed-databases)  
+18. [ER to Relational Mapping & Database Design](#7-er-to-relational-mapping--database-design)
+
 
 
 ---
