@@ -2109,6 +2109,7 @@ Controls how data is stored, retrieved, and managed on disk.
 ---
 
 #### 3. Buffer Manager
+
 Manages the **movement of data between disk and main memory (RAM)**.
 
 **Why needed?**
@@ -2299,6 +2300,7 @@ CREATE TABLE enroll (
 ---
 
 ### Referential Integrity Using Foreign Keys
+
 Foreign keys ensure:
 - No child record exists without matching parent  
 - Prevent deletion of parent if child depends on it  
