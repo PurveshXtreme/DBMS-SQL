@@ -1,16 +1,16 @@
 ## Table of Contents
 
-1. [SQL Basics (Foundation Coding)](#1-sql-basics-foundation-coding)
-2. [SQL Data Types](#2-sql-data-types)
-3. [Constraints (Coding-Based)](#3-constraints-coding-based)
-4. [SQL Filtering & Searching](#4-sql-filtering--searching)
-5. [Sorting & Limiting](#5-sorting--limiting)
-6. [Aggregate Functions](#6-aggregate-functions)
-7. [GROUP BY & HAVING](#7-group-by--having)
-8. [JOINS (Most Important Coding Topic)](#8-joins-most-important-coding-topic)
-9. [Subqueries](#9-subqueries)
-10. [Set Operations](#10-set-operations)
-11. [SQL Functions (Coding Heavy)](#11-sql-functions-coding-heavy)
+1. [SQL Basics (Foundation Coding)](#-1-sql-basics-foundation-coding)
+2. [SQL Data Types](#-2-sql-data-types)
+3. [Constraints (Coding-Based)](#-3-constraints-coding-based)
+4. [SQL Filtering & Searching](#-4-sql-filtering--searching)
+5. [Sorting & Limiting](#-5-sorting--limiting)
+6. [Aggregate Functions](#-7-aggregate-functions)
+7. [GROUP BY & HAVING](#-8-group-by--having)
+8. [JOINS (Most Important Coding Topic)](#-9-joins-most-important-coding-topic)
+9. [Subqueries](#-10-subqueries)
+10. [Set Operations](#-11-set-operations)
+11. [SQL Functions (Coding Heavy)](#-12-sql-functions-coding-heavy)
 
 ---
 ---
